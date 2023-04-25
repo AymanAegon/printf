@@ -42,5 +42,6 @@ int _printf(const char *format, ...)
 			num_char++;
 		}
 	}
+	va_end(ptr);
 	return (num_char);
 }
