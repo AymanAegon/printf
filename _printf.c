@@ -6,7 +6,8 @@
  */
 int _printf(const char *format, ...)
 {
-	int i;
+	int i, num_char = 0;
+	char *str;
 	va_list ptr;
 
 	if (format == NULL)
@@ -23,9 +24,12 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					print_char(va_arg(ptr, int));
+					num_char++;
 					break;
 				case 's':
-					print_string(va_arg(ptr, char *));
+					str = va_arg(ptr, char *);
+					print_string(str);
+					num_char += strlen(str);
 					break;
 				default:
 					i--;
@@ -35,7 +39,8 @@ int _printf(const char *format, ...)
 		else
 		{
 			write(1, &format[i], 1);
+			num_char++;
 		}
 	}
-	return (i);
+	return (num_char);
 }
