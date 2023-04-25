@@ -6,8 +6,7 @@
  */
 int _printf(const char *format, ...)
 {
-	int i, num_char = 0;
-	char *str;
+	int i, num_char = 0, n;
 	va_list ptr;
 
 	if (format == NULL)
@@ -18,32 +17,14 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			i++;
-
-			switch (format[i])
-			{
-				case '%':
-					print_char('%');
-					num_char++;
-					break;
-				case 'c':
-					print_char(va_arg(ptr, int));
-					num_char++;
-					break;
-				case 's':
-					str = va_arg(ptr, char *);
-					print_string(str);
-					num_char += strlen(str);
-					break;
-				default:
-					i--;
-					break;
-			}
+			n = check_print(ptr, format[i + 1]);
+			num_char += n;
+			if (n > 0)
+				i++;
 		}
 		else
 		{
-			write(1, &format[i], 1);
-			num_char++;
+			num_char += write(1, &format[i], 1);
 		}
 	}
 	va_end(ptr);
