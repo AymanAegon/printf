@@ -16,7 +16,7 @@ void print_string(char *s)
 int print_int(int n)
 {
 	int count = 0;
-printf("\n%d\n", n);
+
 	if (n < 0)
 	{
 		count += _putchar('-');
